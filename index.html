@@ -151,6 +151,27 @@ td.tel{font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap}
 .ticket .tmeta{font-size:11.5px;color:var(--mute);margin-bottom:7px}
 .ticket .tdesc{font-size:12.5px;color:var(--ink);white-space:pre-wrap}
 .empty{font-size:12.5px;color:var(--mute)}
+/* regiões — colégio por aluno */
+.rstud .av{min-width:0}
+.rstud .rsmeta{display:flex;flex-direction:column;min-width:0}
+.rstud .rsmeta .sn{line-height:1.2}
+.rstud .rscol{font-size:11px;color:var(--mute);line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rstud .badge,.colstud .badge{flex-shrink:0}
+/* colégios view */
+.colsec{margin-bottom:26px}
+.colsec .sectit{margin:0 0 13px}
+.colsub{font-weight:600;color:var(--mute);text-transform:none;letter-spacing:0;font-size:11.5px}
+.colcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:14px}
+.colcard{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px 16px;border-top:3px solid var(--teal)}
+.colcard .cch{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.colcard .cnm{font-weight:700;font-size:14px;color:var(--navy);line-height:1.25}
+.colcard .ccount{background:var(--soft);color:var(--navy2);border-radius:20px;padding:2px 10px;font-size:11.5px;font-weight:700;flex-shrink:0}
+.colcard .cmeta{font-size:11.5px;color:var(--mute);margin:4px 0 13px;display:flex;align-items:center;gap:5px}
+.clist{display:flex;flex-direction:column;gap:9px}
+.colstud{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.colstud .av{gap:8px;min-width:0}
+.colstud .dot{width:25px;height:25px;font-size:10px}
+.colstud .sn{font-size:12.5px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -166,6 +187,7 @@ td.tel{font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap}
       <a data-view="pipe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg>Pipeline</a>
       <a data-view="res"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6"/><path d="M4 6l2-3h12l2 3M4 6h16M10 11h4"/></svg>Banco de Reserva</a>
       <a data-view="reg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Regiões</a>
+      <a data-view="coleg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></svg>Colégios</a>
     </nav>
     <div class="suggest-wrap">
       <a class="suggest-btn" data-view="sugest">
@@ -241,6 +263,12 @@ td.tel{font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap}
         <div class="resgrid" id="reggrid"></div>
       </section>
 
+      <!-- COLÉGIOS -->
+      <section class="view" id="coleg">
+        <div class="note"><b>Vista por colégio.</b> Distribuição dos colaboradores alocados, agrupada por região. Cada cartão é um colégio e a sua equipa atual.</div>
+        <div id="colgrid"></div>
+      </section>
+
       <!-- SUGESTÕES -->
       <section class="view" id="sugest">
         <div class="note"><b>Caixa de Sugestões.</b> Tem uma ideia para melhorar a plataforma? Descreva-a abaixo. Cada sugestão cria um ticket que a equipa Unilinkr avalia e implementa.</div>
@@ -289,7 +317,7 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",
 function fakePhone(name){let h=0;for(let i=0;i<name.length;i++){h=(h*131+name.charCodeAt(i))>>>0;}const second=[1,2,3,6][h%4];let d="9"+second,x=h;for(let i=0;i<7;i++){x=(x*1103515245+12345)>>>0;d+=x%10;}return d.slice(0,3)+" "+d.slice(3,6)+" "+d.slice(6,9);}
 
 /* nav */
-const TITLES={dash:["Dashboard","Visão geral da operação · Ano letivo 2026/2027"],base:["Base de Talento","Todos os colaboradores, por região e estado"],pipe:["Pipeline de Recrutamento","Do candidato ao formador ativo"],res:["Banco de Reserva","Talento pré-formado, pronto a alocar"],reg:["Regiões","Cobertura nacional da operação"],sugest:["Caixa de Sugestões","Envie ideias e melhorias — a equipa Unilinkr avalia e implementa"]};
+const TITLES={dash:["Dashboard","Visão geral da operação · Ano letivo 2026/2027"],base:["Base de Talento","Todos os colaboradores, por região e estado"],pipe:["Pipeline de Recrutamento","Do candidato ao formador ativo"],res:["Banco de Reserva","Talento pré-formado, pronto a alocar"],reg:["Regiões","Cobertura nacional da operação"],coleg:["Colégios","Alocação de colaboradores por colégio"],sugest:["Caixa de Sugestões","Envie ideias e melhorias — a equipa Unilinkr avalia e implementa"]};
 const navEls=document.querySelectorAll("[data-view]");
 navEls.forEach(a=>a.onclick=()=>{
   navEls.forEach(x=>x.classList.remove("active"));a.classList.add("active");
@@ -356,7 +384,7 @@ function renderKanban(){
       e.preventDefault();col.classList.remove("dragover");
       const name=dragName||e.dataTransfer.getData("text/plain");
       const person=P.find(p=>p.n===name);
-      if(person&&person.s!==col.dataset.stage){person.s=col.dataset.stage;renderKanban();render();renderDashboard();renderRegioes();}
+      if(person&&person.s!==col.dataset.stage){person.s=col.dataset.stage;renderKanban();render();renderDashboard();renderRegioes();renderColegios();}
     });
   });
 }
@@ -376,7 +404,7 @@ function renderRegioes(){
     const list=P.filter(p=>p.r===r);
     const total=list.length,a=activeIn(r),need=NEED[r],u=list.filter(p=>p.u).length;
     const res=list.filter(p=>p.s==="Reserva").length,pct=Math.round(a/need*100),warn=pct<85;
-    const students=list.slice().sort((x,y)=>x.n.localeCompare(y.n)).map(p=>`<div class="rstud"><div class="av"><div class="dot">${initials(p.n)}</div><span class="sn">${p.n}</span></div><span class="badge ${BCLS[p.s]}">${p.s}</span></div>`).join("");
+    const students=list.slice().sort((x,y)=>x.n.localeCompare(y.n)).map(p=>`<div class="rstud"><div class="av"><div class="dot">${initials(p.n)}</div><div class="rsmeta"><span class="sn">${p.n}</span><span class="rscol">${p.c?'🏫 '+p.c:'Sem alocação'}</span></div></div><span class="badge ${BCLS[p.s]}">${p.s}</span></div>`).join("");
     return `<div class="rescard" style="border-left-color:${warn?'#D9892B':'#0E9F8C'}">
       <div class="rn">${r}</div>
       <div class="rd" style="margin-bottom:10px">Base total: <b>${total}</b> · Ativos: <b>${a}</b> · Reserva: <b>${res}</b> · Via Unilinkr: <b>${u}</b></div>
@@ -393,6 +421,24 @@ function toggleRegion(btn){
   btn.textContent=open?`Ver alunos (${btn.dataset.total}) ▾`:"Ocultar alunos ▴";
 }
 renderRegioes();
+
+/* colégios — vista por colégio, agrupada por região */
+function renderColegios(){
+  const allocated=P.filter(p=>p.c);
+  document.getElementById("colgrid").innerHTML=REGS.map(r=>{
+    const colegios=[...new Set(allocated.filter(p=>p.r===r).map(p=>p.c))].sort((a,b)=>a.localeCompare(b));
+    if(!colegios.length)return"";
+    const cards=colegios.map(c=>{
+      const people=allocated.filter(p=>p.r===r&&p.c===c).sort((x,y)=>x.n.localeCompare(y.n));
+      const studs=people.map(p=>`<div class="colstud"><div class="av"><div class="dot">${initials(p.n)}</div><span class="sn">${p.n}${p.u?' <span class="tagu">Unilinkr</span>':''}</span></div><span class="badge ${BCLS[p.s]}">${p.s}</span></div>`).join("");
+      return `<div class="colcard"><div class="cch"><div class="cnm">${c}</div><span class="ccount">${people.length}</span></div>
+        <div class="cmeta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${r}</div>
+        <div class="clist">${studs}</div></div>`;
+    }).join("");
+    return `<div class="colsec"><div class="sectit">${r} <span class="colsub">· ${colegios.length} colégios · ${allocated.filter(p=>p.r===r).length} colaboradores</span></div><div class="colcards">${cards}</div></div>`;
+  }).join("");
+}
+renderColegios();
 
 /* sugestões / tickets */
 const tickets=[];let ticketSeq=101;
