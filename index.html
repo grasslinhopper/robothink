@@ -113,6 +113,44 @@ tbody tr:hover{background:var(--soft)}
 .note b{color:var(--teal-d)}
 .sectit{font-size:13px;font-weight:700;color:var(--navy);margin:24px 0 12px;text-transform:uppercase;letter-spacing:.6px}
 @media(max-width:1100px){.kpis{grid-template-columns:repeat(2,1fr)}.kanban{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}.resgrid{grid-template-columns:1fr 1fr}}
+/* phone cell */
+td.tel{font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap}
+/* pipeline drag & drop */
+.col-body{min-height:60px;max-height:520px;overflow-y:auto}
+.pcard{cursor:grab}
+.pcard:active{cursor:grabbing}
+.pcard.dragging{opacity:.4}
+.col.dragover{background:var(--softteal);border-color:var(--teal);box-shadow:0 0 0 2px rgba(14,159,140,.25) inset}
+.pdhint{font-size:11.5px;color:var(--mute);margin:-6px 0 16px;display:flex;align-items:center;gap:7px}
+/* regiões student list */
+.rtoggle{margin-top:13px;width:100%;display:flex;align-items:center;justify-content:center;gap:7px}
+.rlist{margin-top:11px;border-top:1px solid var(--line);padding-top:11px;display:flex;flex-direction:column;gap:8px;max-height:300px;overflow-y:auto}
+.rstud{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.rstud .av{gap:8px}
+.rstud .dot{width:25px;height:25px;font-size:10px}
+.rstud .sn{font-size:12.5px;color:var(--ink)}
+/* suggestion box button */
+.suggest-wrap{padding:2px 12px 4px}
+.suggest-btn{display:flex;align-items:center;gap:11px;padding:11px 13px;border-radius:10px;background:linear-gradient(135deg,var(--teal),#3fd1c5);color:#fff;cursor:pointer;text-decoration:none;transition:.15s}
+.suggest-btn svg{width:19px;height:19px;flex-shrink:0;stroke:#fff}
+.suggest-btn b{font-size:13px;display:block;line-height:1.2}
+.suggest-btn span{font-size:10.5px;color:rgba(255,255,255,.88)}
+.suggest-btn:hover{filter:brightness(1.06)}
+.suggest-btn.active{box-shadow:0 0 0 2px rgba(255,255,255,.45) inset}
+/* suggestion form + tickets */
+.fld{margin-bottom:14px}
+.fld label{display:block;font-size:12px;font-weight:600;color:var(--navy);margin-bottom:5px}
+.fld input,.fld select,.fld textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 12px;font-size:13px;font-family:inherit;color:var(--ink);outline:none;background:#fff}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--teal)}
+.fld textarea{min-height:110px;resize:vertical}
+.sgok{background:var(--green-bg);border:1px solid #BFE6DD;color:var(--teal-d);border-radius:9px;padding:10px 13px;font-size:12.5px;margin-bottom:14px;display:none}
+.ticket{border:1px solid var(--line);border-radius:11px;padding:13px 15px;margin-bottom:11px;border-left:3px solid var(--teal)}
+.ticket .thd{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.ticket .thd b{font-size:12.5px;color:var(--navy)}
+.ticket .tsub{font-weight:600;font-size:13.5px;margin-bottom:3px;color:var(--ink)}
+.ticket .tmeta{font-size:11.5px;color:var(--mute);margin-bottom:7px}
+.ticket .tdesc{font-size:12.5px;color:var(--ink);white-space:pre-wrap}
+.empty{font-size:12.5px;color:var(--mute)}
 </style>
 </head>
 <body>
@@ -129,11 +167,17 @@ tbody tr:hover{background:var(--soft)}
       <a data-view="res"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6"/><path d="M4 6l2-3h12l2 3M4 6h16M10 11h4"/></svg>Banco de Reserva</a>
       <a data-view="reg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Regiões</a>
     </nav>
+    <div class="suggest-wrap">
+      <a class="suggest-btn" data-view="sugest">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-4 12.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26A7 7 0 0 0 12 2z"/><path d="M9 21h6"/></svg>
+        <div><b>Caixa de Sugestões</b><span>Enviar ideia ou melhoria</span></div>
+      </a>
+    </div>
     <div class="byunilinkr">Desenvolvido por <b>Unilinkr</b><br>Protótipo · Módulo 2</div>
   </aside>
 
   <div class="main">
-    <div class="demobar">Protótipo ilustrativo — dados de exemplo baseados na estrutura real da base Robothink. Contactos pessoais omitidos.</div>
+    <div class="demobar">Protótipo ilustrativo — dados de exemplo baseados na estrutura real da base Robothink.</div>
     <div class="topbar">
       <div><h1 id="vtitle">Dashboard</h1><div class="sub" id="vsub">Visão geral da operação · Ano letivo 2026/2027</div></div>
       <div class="search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><input id="q" placeholder="Procurar colaborador..."></div>
@@ -174,13 +218,14 @@ tbody tr:hover{background:var(--soft)}
           </select>
           <span class="tcount" id="tcount"></span>
         </div>
-        <table><thead><tr><th>Colaborador</th><th>Região</th><th>Alocação</th><th>Origem</th><th>Estado</th></tr></thead>
+        <table><thead><tr><th>Colaborador</th><th>Telefone</th><th>Região</th><th>Alocação</th><th>Origem</th><th>Estado</th></tr></thead>
           <tbody id="tbody"></tbody></table>
       </section>
 
       <!-- PIPELINE -->
       <section class="view" id="pipe">
         <div class="note"><b>Do candidato ao formador.</b> Cada cartão segue o vosso processo real: candidatura → entrevista online → formação (≈12 formandos) → aula experimental remunerada → ativo.</div>
+        <div class="pdhint"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/></svg>Arraste os cartões entre as colunas para atualizar o estado de cada formando.</div>
         <div class="kanban" id="kanban"></div>
       </section>
 
@@ -194,6 +239,31 @@ tbody tr:hover{background:var(--soft)}
       <section class="view" id="reg">
         <div class="sectit">Cobertura nacional</div>
         <div class="resgrid" id="reggrid"></div>
+      </section>
+
+      <!-- SUGESTÕES -->
+      <section class="view" id="sugest">
+        <div class="note"><b>Caixa de Sugestões.</b> Tem uma ideia para melhorar a plataforma? Descreva-a abaixo. Cada sugestão cria um ticket que a equipa Unilinkr avalia e implementa.</div>
+        <div class="grid2">
+          <div class="panel">
+            <h3>Nova sugestão</h3><div class="psub">Quanto mais detalhe, mais fácil de implementar.</div>
+            <div class="sgok" id="sgOk"></div>
+            <form id="suggForm">
+              <div class="fld"><label>Assunto</label><input id="sgSubject" placeholder="Ex.: Exportar base de talento para Excel" required></div>
+              <div class="fld"><label>Categoria</label>
+                <select id="sgCat" class="sel" style="width:100%">
+                  <option>Nova funcionalidade</option><option>Melhoria</option><option>Correção / Bug</option><option>Relatórios &amp; dados</option><option>Outro</option>
+                </select>
+              </div>
+              <div class="fld"><label>Descrição</label><textarea id="sgDesc" placeholder="Descreva a ideia, o problema que resolve e quem beneficia..." required></textarea></div>
+              <button class="btn" type="submit">Enviar sugestão</button>
+            </form>
+          </div>
+          <div class="panel">
+            <h3>Sugestões enviadas</h3><div class="psub">Tickets criados nesta sessão.</div>
+            <div id="ticketList"></div>
+          </div>
+        </div>
       </section>
 
     </div>
@@ -215,30 +285,34 @@ const NEED={Viseu:3,Coimbra:9,Porto:11,Algarve:6,Lisboa:22};
 const BCLS={"Ativo":"b-ativo","Em formação":"b-form","Reserva":"b-res","Aula experimental":"b-aula","Entrevista":"b-ent","Candidatura":"b-cand"};
 const initials=n=>n.split(" ").filter(Boolean).slice(0,2).map(w=>w[0]).join("").toUpperCase();
 const activeIn=r=>P.filter(p=>p.r===r&&p.s==="Ativo").length;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function fakePhone(name){let h=0;for(let i=0;i<name.length;i++){h=(h*131+name.charCodeAt(i))>>>0;}const second=[1,2,3,6][h%4];let d="9"+second,x=h;for(let i=0;i<7;i++){x=(x*1103515245+12345)>>>0;d+=x%10;}return d.slice(0,3)+" "+d.slice(3,6)+" "+d.slice(6,9);}
 
 /* nav */
-const TITLES={dash:["Dashboard","Visão geral da operação · Ano letivo 2026/2027"],base:["Base de Talento","Todos os colaboradores, por região e estado"],pipe:["Pipeline de Recrutamento","Do candidato ao formador ativo"],res:["Banco de Reserva","Talento pré-formado, pronto a alocar"],reg:["Regiões","Cobertura nacional da operação"]};
-document.querySelectorAll("#nav a").forEach(a=>a.onclick=()=>{
-  document.querySelectorAll("#nav a").forEach(x=>x.classList.remove("active"));a.classList.add("active");
+const TITLES={dash:["Dashboard","Visão geral da operação · Ano letivo 2026/2027"],base:["Base de Talento","Todos os colaboradores, por região e estado"],pipe:["Pipeline de Recrutamento","Do candidato ao formador ativo"],res:["Banco de Reserva","Talento pré-formado, pronto a alocar"],reg:["Regiões","Cobertura nacional da operação"],sugest:["Caixa de Sugestões","Envie ideias e melhorias — a equipa Unilinkr avalia e implementa"]};
+const navEls=document.querySelectorAll("[data-view]");
+navEls.forEach(a=>a.onclick=()=>{
+  navEls.forEach(x=>x.classList.remove("active"));a.classList.add("active");
   const v=a.dataset.view;document.querySelectorAll(".view").forEach(s=>s.classList.remove("active"));
   document.getElementById(v).classList.add("active");
   document.getElementById("vtitle").textContent=TITLES[v][0];document.getElementById("vsub").textContent=TITLES[v][1];
 });
 
-/* dashboard: region bars */
-document.getElementById("regbars").innerHTML=REGS.map(r=>{
-  const a=activeIn(r),need=NEED[r],pct=Math.round(a/need*100),warn=pct<85;
-  return `<div class="rrow"><div class="rh"><b>${r}</b><span>${a}/${need} ativos · ${pct}%</span></div>
-    <div class="track"><div class="fill ${warn?'warn':''}" style="width:${Math.min(pct,100)}%"></div></div></div>`;
-}).join("");
-
-/* dashboard: funnel */
+/* dashboard: region bars + funnel */
 const STAGES=[["Candidatura","#9AA3B2"],["Entrevista","#E5713B"],["Em formação","#D9892B"],["Aula experimental","#7C5CD6"],["Ativo","#0E9F8C"]];
-const maxC=Math.max(...STAGES.map(([s])=>P.filter(p=>p.s===s).length));
-document.getElementById("funnel").innerHTML=STAGES.slice().reverse().map(([s,c])=>{
-  const n=P.filter(p=>p.s===s).length;const w=22+(n/maxC)*78;
-  return `<div class="fstep"><div class="fn">${s}</div><div class="fbar" style="background:${c};width:${w}%">${n}</div></div>`;
-}).join("");
+function renderDashboard(){
+  document.getElementById("regbars").innerHTML=REGS.map(r=>{
+    const a=activeIn(r),need=NEED[r],pct=Math.round(a/need*100),warn=pct<85;
+    return `<div class="rrow"><div class="rh"><b>${r}</b><span>${a}/${need} ativos · ${pct}%</span></div>
+      <div class="track"><div class="fill ${warn?'warn':''}" style="width:${Math.min(pct,100)}%"></div></div></div>`;
+  }).join("");
+  const maxC=Math.max(...STAGES.map(([s])=>P.filter(p=>p.s===s).length))||1;
+  document.getElementById("funnel").innerHTML=STAGES.slice().reverse().map(([s,c])=>{
+    const n=P.filter(p=>p.s===s).length;const w=22+(n/maxC)*78;
+    return `<div class="fstep"><div class="fn">${s}</div><div class="fbar" style="background:${c};width:${w}%">${n}</div></div>`;
+  }).join("");
+}
+renderDashboard();
 
 /* base table */
 let regFilter="";
@@ -253,6 +327,7 @@ function render(){
   const rows=P.filter(p=>(!regFilter||p.r===regFilter)&&(!sf||p.s===sf)&&(!q||p.n.toLowerCase().includes(q)));
   document.getElementById("tbody").innerHTML=rows.map(p=>`<tr>
     <td><div class="av"><div class="dot">${initials(p.n)}</div><b>${p.n}</b></div></td>
+    <td class="tel">${fakePhone(p.n)}</td>
     <td>${p.r}</td><td>${p.c||'<span style="color:#9AA3B2">—</span>'}</td>
     <td>${p.u?'<span class="src u">● Unilinkr</span>':'<span class="src d">Direto</span>'}</td>
     <td><span class="badge ${BCLS[p.s]}">${p.s}</span></td></tr>`).join("");
@@ -260,16 +335,32 @@ function render(){
 }
 render();
 
-/* pipeline kanban */
+/* pipeline kanban — drag & drop */
 const PIPE=[["Candidatura","Candidatura"],["Entrevista","Entrevista"],["Em formação","Em formação"],["Aula experimental","Aula exp."],["Ativo","Ativo"]];
-document.getElementById("kanban").innerHTML=PIPE.map(([s,label])=>{
-  const items=P.filter(p=>p.s===s);
-  const show=s==="Ativo"?items.slice(0,6):items;
-  const cards=show.map(p=>`<div class="pcard"><div class="pn">${p.n}</div>
-    <div class="pr">${p.r}${p.c?' · '+p.c:''} ${p.u?'<span class="tagu">Unilinkr</span>':''}</div></div>`).join("");
-  const more=s==="Ativo"&&items.length>6?`<div class="pr" style="text-align:center;padding:4px">+${items.length-6} ativos</div>`:"";
-  return `<div class="col"><div class="ch"><b>${label}</b><span class="n">${items.length}</span></div>${cards}${more}</div>`;
-}).join("");
+let dragName=null;
+function renderKanban(){
+  document.getElementById("kanban").innerHTML=PIPE.map(([s,label])=>{
+    const items=P.filter(p=>p.s===s);
+    const cards=items.map(p=>`<div class="pcard" draggable="true" data-name="${p.n}"><div class="pn">${p.n}</div>
+      <div class="pr">${p.r}${p.c?' · '+p.c:''} ${p.u?'<span class="tagu">Unilinkr</span>':''}</div></div>`).join("");
+    return `<div class="col" data-stage="${s}"><div class="ch"><b>${label}</b><span class="n">${items.length}</span></div><div class="col-body">${cards}</div></div>`;
+  }).join("");
+  document.querySelectorAll("#kanban .pcard").forEach(card=>{
+    card.addEventListener("dragstart",e=>{dragName=card.dataset.name;card.classList.add("dragging");e.dataTransfer.effectAllowed="move";try{e.dataTransfer.setData("text/plain",dragName);}catch(_){}});
+    card.addEventListener("dragend",()=>{dragName=null;document.querySelectorAll("#kanban .pcard").forEach(c=>c.classList.remove("dragging"));document.querySelectorAll("#kanban .col").forEach(c=>c.classList.remove("dragover"));});
+  });
+  document.querySelectorAll("#kanban .col").forEach(col=>{
+    col.addEventListener("dragover",e=>{e.preventDefault();e.dataTransfer.dropEffect="move";col.classList.add("dragover");});
+    col.addEventListener("dragleave",e=>{if(!col.contains(e.relatedTarget))col.classList.remove("dragover");});
+    col.addEventListener("drop",e=>{
+      e.preventDefault();col.classList.remove("dragover");
+      const name=dragName||e.dataTransfer.getData("text/plain");
+      const person=P.find(p=>p.n===name);
+      if(person&&person.s!==col.dataset.stage){person.s=col.dataset.stage;renderKanban();render();renderDashboard();renderRegioes();}
+    });
+  });
+}
+renderKanban();
 
 /* reserva */
 const profiles=["Mestrado em Educação","Mestrado em Eng. Informática","Mestrado em Ens. Básico","Mestrado em Robótica","Mestrado em Psicologia","Mestrado em Eng. Eletrotécnica","Mestrado em Ciências da Educação"];
@@ -279,17 +370,53 @@ document.getElementById("resgrid").innerHTML=P.filter(p=>p.s==="Reserva").map((p
   <button class="btn" onclick="alloc(this,'${p.n}')">Alocar a colégio</button></div>`).join("");
 function alloc(btn,name){btn.textContent="✓ Alocado";btn.classList.add("ghost");btn.disabled=true;}
 
-/* regiões */
-document.getElementById("reggrid").innerHTML=REGS.map(r=>{
-  const total=P.filter(p=>p.r===r).length,a=activeIn(r),need=NEED[r],u=P.filter(p=>p.r===r&&p.u).length;
-  const res=P.filter(p=>p.r===r&&p.s==="Reserva").length,pct=Math.round(a/need*100),warn=pct<85;
-  return `<div class="rescard" style="border-left-color:${warn?'#D9892B':'#0E9F8C'}">
-    <div class="rn">${r}</div>
-    <div class="rd" style="margin-bottom:10px">Base total: <b>${total}</b> · Ativos: <b>${a}</b> · Reserva: <b>${res}</b> · Via Unilinkr: <b>${u}</b></div>
-    <div class="track"><div class="fill ${warn?'warn':''}" style="width:${Math.min(pct,100)}%"></div></div>
-    <div class="rd" style="margin:7px 0 0">Cobertura: <b>${a}/${need}</b> (${pct}%) ${warn?'· <span style="color:#D9892B">reforço sugerido</span>':'· <span style="color:#0E9F8C">ok</span>'}</div>
-  </div>`;
-}).join("");
+/* regiões — com lista de alunos expansível */
+function renderRegioes(){
+  document.getElementById("reggrid").innerHTML=REGS.map(r=>{
+    const list=P.filter(p=>p.r===r);
+    const total=list.length,a=activeIn(r),need=NEED[r],u=list.filter(p=>p.u).length;
+    const res=list.filter(p=>p.s==="Reserva").length,pct=Math.round(a/need*100),warn=pct<85;
+    const students=list.slice().sort((x,y)=>x.n.localeCompare(y.n)).map(p=>`<div class="rstud"><div class="av"><div class="dot">${initials(p.n)}</div><span class="sn">${p.n}</span></div><span class="badge ${BCLS[p.s]}">${p.s}</span></div>`).join("");
+    return `<div class="rescard" style="border-left-color:${warn?'#D9892B':'#0E9F8C'}">
+      <div class="rn">${r}</div>
+      <div class="rd" style="margin-bottom:10px">Base total: <b>${total}</b> · Ativos: <b>${a}</b> · Reserva: <b>${res}</b> · Via Unilinkr: <b>${u}</b></div>
+      <div class="track"><div class="fill ${warn?'warn':''}" style="width:${Math.min(pct,100)}%"></div></div>
+      <div class="rd" style="margin:7px 0 0">Cobertura: <b>${a}/${need}</b> (${pct}%) ${warn?'· <span style="color:#D9892B">reforço sugerido</span>':'· <span style="color:#0E9F8C">ok</span>'}</div>
+      <button class="btn ghost rtoggle" data-total="${total}" onclick="toggleRegion(this)">Ver alunos (${total}) ▾</button>
+      <div class="rlist" style="display:none">${students}</div>
+    </div>`;
+  }).join("");
+}
+function toggleRegion(btn){
+  const list=btn.nextElementSibling;const open=list.style.display!=="none";
+  list.style.display=open?"none":"block";
+  btn.textContent=open?`Ver alunos (${btn.dataset.total}) ▾`:"Ocultar alunos ▴";
+}
+renderRegioes();
+
+/* sugestões / tickets */
+const tickets=[];let ticketSeq=101;
+function renderTickets(){
+  const el=document.getElementById("ticketList");
+  if(!tickets.length){el.innerHTML='<div class="empty">Ainda não há sugestões enviadas. Crie a primeira ao lado.</div>';return;}
+  el.innerHTML=tickets.map(t=>`<div class="ticket"><div class="thd"><b>${t.id}</b><span class="badge b-form">${t.status}</span></div><div class="tsub">${esc(t.subject)}</div><div class="tmeta">${esc(t.cat)} · ${t.date}</div><div class="tdesc">${esc(t.desc)}</div></div>`).join("");
+}
+const suggForm=document.getElementById("suggForm");
+suggForm.onsubmit=e=>{
+  e.preventDefault();
+  const subject=document.getElementById("sgSubject").value.trim();
+  const cat=document.getElementById("sgCat").value;
+  const desc=document.getElementById("sgDesc").value.trim();
+  if(!subject||!desc)return;
+  const id="RTK-"+(ticketSeq++);
+  tickets.unshift({id,subject,cat,desc,status:"Aberto",date:new Date().toLocaleDateString("pt-PT")});
+  suggForm.reset();
+  const ok=document.getElementById("sgOk");
+  ok.textContent="✓ Sugestão enviada — ticket "+id+" criado. A equipa Unilinkr foi notificada.";
+  ok.style.display="block";
+  renderTickets();
+};
+renderTickets();
 </script>
 </body>
 </html>
